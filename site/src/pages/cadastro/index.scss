@@ -1,0 +1,72 @@
+.pg-cadastro{
+    display: flex;
+    flex-direction: row;
+    .pt-cima{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        height: 60vh;
+        width: 50vw;
+
+    }
+    .dir{
+        display: flex;
+        height: 100vh;
+        width: 50%;
+        align-items: center;
+        flex-direction: column;
+    }
+    .caixa{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        margin-top: -3%;
+        width: 100%;
+    }
+    .caixas{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 20vh;
+        width: 100%;
+        flex-direction: column;
+    }
+    input{
+        height: 1em;
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid black;
+    }
+    .btn{
+        display: flex;
+        width: 30%;
+        align-items: flex-end;
+        justify-content: flex-end;
+        button{
+            border: none;
+            border-radius: 15px;
+            color: #fff;
+            font-weight: 700;
+            width:7em;
+            height: 2em;
+            cursor: pointer;
+            background-color: #50B4BF;
+        }
+    }
+    .text{
+        height: 35vh;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+    }
+    b{
+        cursor: pointer;
+    }
+    h4{
+        font-weight: 800;
+        font-size: 18px;
+    }
+ 
+}
