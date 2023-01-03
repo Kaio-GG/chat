@@ -103,16 +103,27 @@
             height: 30px;
         }
     }
+    .caixa-msg{
+        height: 35px;
+    }
     .dir{
         display: flex;
         flex-direction: column;
         width: 70%;
+        overflow-y: scroll;
         .msg{
             display: flex;
-            flex-direction: row;
-            align-items: center;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            height: 20px;
         }
 
+    }
+    .menssagem{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
     }
     .logo{
         display: flex;
