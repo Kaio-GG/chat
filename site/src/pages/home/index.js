@@ -4,7 +4,7 @@ import MonkChat from '../../components/monkChat';
 import { Login } from '../../api/usuario.js';
 import { useState } from 'react';
 import storage from 'local-storage';
-
+import {toast} from 'react-toastify'
 
 
 export default function Home (){
@@ -22,7 +22,7 @@ export default function Home (){
             const resp = await Login(email, senha)
             storage('usuario' , resp)
             navigate('/mensagem')
-
+            toast.dark('logado')
         } catch (err) {
             if (err.response.status === 401) {
                 console.log(err)

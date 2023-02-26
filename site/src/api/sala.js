@@ -29,7 +29,7 @@ export async function carregarMsg(id){
     return resp.data
 }
 
-export async function msgEnviar (id , msg , data){
-    const resp = await api.post (`/menssagem/enviar/${id}/${msg}/${data}`)
+export async function msgEnviar (idsala, id , msg , data){
+    const resp = await api.post (`/menssagem/enviar/${idsala}/${id}/${msg}/${data}`)
     return resp.data
 }

@@ -52,6 +52,9 @@ export default function Pgcadastro (){
                 <div className='pt-cima'>
 
                     <h1>Crie sua conta</h1>
+                    <br/>
+                    <br/>
+                    <br/>
 
                     <div className='caixas'>
 

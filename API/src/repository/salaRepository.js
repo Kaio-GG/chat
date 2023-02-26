@@ -14,7 +14,7 @@ export async function criarSala (info){
 
 export async function acharSala (info){
     const comando = `
-    select id_sala 
+    select * 
          from tb_sala
     where nm_sala = ?           
     `
@@ -34,9 +34,12 @@ export async function entrarSala (info){
 
 export async function carregarMsg (info){
     const comando = `
-        select *
-	      from tb_menssagem
- 	      where id_sala = ?
+            select *
+            from  
+                tb_menssagem
+            inner join
+                tb_usuario on tb_menssagem.id_usuario = tb_usuario.id_usuario
+            where id_sala = ?
     `
     const [linhas] = await con.query (comando , [info.idsala])
     return linhas
@@ -47,10 +50,10 @@ export async function carregarMsg (info){
 
 export async function enviarMsg (info){
     const comando = `
-        insert into tb_menssagem (id_sala ,ds_menssagem ,dt_messagem )    
-                           value (? , ? ,? )
+        insert into tb_menssagem (id_sala, id_usuario ,ds_menssagem ,dt_menssagem )    
+                           value (? , ? , ? ,? )
     `
-    const [linhas] = await con.query (comando , [info.sala , info.msg , info.data])
+    const [linhas] = await con.query (comando , [info.sala , info.id , info.msg , info.data])
     return info
 }
 

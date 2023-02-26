@@ -2,17 +2,17 @@ import './index.scss';
 import { salaCriar , carregarMsg , salaAchar , salaEntrar , msgEnviar } from '../../api/sala.js';
 import { useEffect, useState } from 'react';
 import storage from 'local-storage';
-
+import { toast } from 'react-toastify';
 
 
 export default function Mensagen (){
 
     const [nome , setnome] = useState('');
-    const [idsala , setidsala] = useState('');
+    const [idsala , setidsala] = useState(0);
     const [msg , setmsg] = useState([]);
     const [novamsg , setnovamsg] = useState('');
-    const [ data , setdata] = useState('');
-
+    const [data , setdata] = useState('');
+    const [sala , setsala] = useState('');
 
     const usuario = storage('usuario');
     const id = (usuario.id_usuario);
@@ -28,33 +28,32 @@ export default function Mensagen (){
     
     async function criar (){
         try {
-          await salaCriar(nome , id);
-        await achar()
+            toast.dark('sala criada');
+            await salaCriar(nome , id);                
+            
+            await entrar();
         } catch (err) {
             console.log(err.mensagen)
         }
     }
 
-
-    async function achar (){
-        try {
-            let sala = await salaAchar(nome);
-            setidsala(sala.id_sala)
-            entrar() 
-            console.log('achou')
-        } catch (err) {
-            console.log(err.mensagen)        
-        }
-    }
 
     async function entrar (){
         try {
-           await salaEntrar(id , idsala)
-           listarMsg()
+            let sala = await salaAchar(nome);
+            if(!sala){
+                toast.error('sala inesistente')
+            }
+            await salaEntrar(id ,sala.id_sala)
+            let m = await carregarMsg(sala.id_sala)
+            setmsg(m)
+            setidsala(sala.id_sala)
+            setsala(sala.nm_sala)
         } catch (err) {
-            console.log(err.mensagen)
+            console.log(err.Mensagen)        
         }
     }
+
 
     async function listarMsg (){
         try {
@@ -68,9 +67,9 @@ export default function Mensagen (){
 
     async function enviarMsg(){
         try {
-            await msgEnviar(idsala , novamsg , data)
-            listarMsg()
-            
+            await msgEnviar(idsala, id , novamsg , data );
+            listarMsg();
+            setnovamsg('');
         } catch (err) {
             console.log(err.mensagen)
         }
@@ -105,7 +104,7 @@ export default function Mensagen (){
                         
                                     <div className='org-botao'>
                                         <button onClick={criar}>Criar</button>&nbsp;&nbsp;
-                                        <button onClick={achar} >Entar</button>
+                                        <button onClick={entrar} >Entar</button>
 
                                     </div>
 
@@ -113,19 +112,22 @@ export default function Mensagen (){
 
                                     <div className='pt-baixo'>
                                             <h2>mensagem:</h2>
-                                            <textarea value={novamsg}  onChange={e => setnovamsg(e.target.value)}></textarea>
+                                            <textarea onKeyDown={(e)=>{if(e.key === "Enter"){enviarMsg();setnovamsg('')}}}  onChange={e => setnovamsg(e.target.value)} onkeydown={enviarMsg}></textarea>
                                             <div className='org-botao'>
-                                                    <button onClick={enviarMsg} >Enviar</button>
+                                                    <button  onClick={enviarMsg} >Enviar</button>
                                             </div>
                                     </div>
                 
                                     
                             </div>   
                             <div className='dir'>
+                                <div className='nome-sala'>
+                                    <h3>{sala}</h3>
+                                </div>
                                 <div className='msg'>
                                     {msg.map ((item , pos) => 
                                     <div className='caixa-msg'>
-                                        <p className='menssagem'>&nbsp;&nbsp;({String(item.dt_messagem).substr(0,10).replace('-','/').replace('-','/')}) &nbsp;&nbsp; <h4>Kaio:</h4> &nbsp;&nbsp; {item.ds_menssagem}</p>            
+                                        <p className='menssagem'>&nbsp;&nbsp;({String(item.dt_menssagem).substr(0,10).replace('-','/').replace('-','/')}) &nbsp;&nbsp; <h4>{item.nm_usuario}</h4> &nbsp;:&nbsp; {item.ds_menssagem}</p>            
                                     </div>    
                                     )}
                                 </div>

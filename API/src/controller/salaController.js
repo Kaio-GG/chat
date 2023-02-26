@@ -9,17 +9,14 @@ server.post ('/criar' , async   (req , resp) => {
     try {
         const info = req.body;
         const respost = await criarSala(info);
-        
-        resp.status(200);
+        resp.status(200).send(respost);
     } catch (err) {
-        if (err === "Duplicate entry 'oii' for key 'tb_sala.nm_sala'") {
-            resp.status(410)   
-        }else{
+
             resp.status(401).send({
                 erro: err.message
             })
-        }
     }
+    
 })
 
 
@@ -64,7 +61,7 @@ server.get ('/menssagem/:idsala' , async (req , resp) =>{
 })
 
 
-server.post ('/menssagem/enviar/:sala/:msg/:data' , async (req , resp) =>{
+server.post ('/menssagem/enviar/:sala/:id/:msg/:data' , async (req , resp) =>{
     try {
         const info = req.params
         const msg = await enviarMsg(info)
