@@ -26,5 +26,18 @@ export async function Login (email , senha){
 }
 
 
+export async function alterarConta(nome, email, senha, id){
+    try {
+    const resp = await api.put('/alterar',{
+        nome: nome,
+        email: email,
+        senha: senha,
+        id:id
+    });
+    return resp.data;
 
+    } catch (err) {
+        console.log(err.message)
+    }
+}
 

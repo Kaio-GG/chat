@@ -27,6 +27,18 @@ export async function login(info){
 }
 
 
+export async function alterarConta (info, id){
+    const comando = `        
+        update tb_usuario
+        set
+        nm_usuario = ?,
+        ds_email = ?,
+        ds_senha = ? 
+        where id_usuario = ?
+    `
+    const [linha] = await con.query(comando, [info.nome, info.email, info.senha , info.id] )
+    return linha.affectedRows;
 
+}
 
 

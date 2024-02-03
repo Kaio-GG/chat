@@ -120,6 +120,7 @@
     }
     .caixa-msg{
         height: 35px;
+
     }
     .dir{
         display: flex;
@@ -128,12 +129,17 @@
         overflow-y: scroll;
         .msg{
             display: flex;
-            flex-direction: column;
+            flex-direction: column-reverse;
             align-items: flex-start;
-            justify-content: flex-start;
-            height: 20px;
+            justify-content: flex-end;
+            height: 100%;
+            border: 3px solid rgb(61, 61, 61);
+            border-radius: 5px
         }
 
+    }
+    .alterar{
+        cursor: pointer;
     }
     .menssagem{
         display: flex;

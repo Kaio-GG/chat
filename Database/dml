@@ -1,0 +1,38 @@
+create database monkchat;
+use monkchat;
+
+create table TB_USUARIO(
+	id_usuario int primary key auto_increment,
+    nm_usuario varchar(200),
+    ds_email varchar(2000),
+    ds_senha varchar(20)
+);
+
+
+create table tb_sala(
+	id_sala int primary key auto_increment,
+    id_usuario int,
+	nm_sala varchar (200),
+    foreign key (id_usuario) references tb_usuario(id_usuario) 
+);
+
+create table TB_PARTICIPANTE(
+	id_participante int primary key auto_increment,
+    id_usuario int,
+    id_sala int,
+    foreign key (id_usuario) references tb_usuario(id_usuario),
+    foreign key (id_sala) references tb_sala(id_sala)
+
+);
+
+create table tb_menssagem(
+	id_menssagem int primary key auto_increment,
+    id_sala int, 
+    id_usuario int,
+    ds_menssagem varchar(200),
+    dt_menssagem varchar(200),
+    
+    foreign key (id_usuario) references tb_usuario(id_usuario),
+    foreign key (id_sala) references tb_sala(id_sala)
+
+);

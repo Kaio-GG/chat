@@ -1,6 +1,6 @@
 import './index.scss'
 import { useNavigate } from 'react-router-dom'
-import MonkChat from '../../components/monkChat';
+import MonkChat from '../../components/monkChat/index.js';
 import { Login } from '../../api/usuario.js';
 import { useState } from 'react';
 import storage from 'local-storage';

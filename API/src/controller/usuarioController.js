@@ -1,4 +1,4 @@
-import { cadastro , login } from "../repository/usuarioRepository.js";
+import { alterarConta, cadastro , login } from "../repository/usuarioRepository.js";
 import { Router } from "express";
 
 const server = Router();
@@ -37,6 +37,20 @@ server.post('/login' , async (req, resp) =>{
         resp.send(logou)
     } catch (err) {
         resp.status(401).send({
+            erro: err.message
+        })
+    }
+})
+
+server.put('/alterar', async (req,resp) =>{
+    try {
+        const nomeEmailSenhaId = req.body;
+        const resposta = await alterarConta(nomeEmailSenhaId)
+        if(!resposta)
+            throw new Error('erro ao atualizar')
+        resp.send(nomeEmailSenhaId)
+    } catch (err) {
+        resp.status(404).send({
             erro: err.message
         })
     }
